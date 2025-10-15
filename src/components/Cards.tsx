@@ -33,30 +33,70 @@ function TiltWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
+// export function NewsCard({ title, subtitle, img }: CardProps): JSX.Element {
+//   return (
+//     <motion.article
+//       initial={{ opacity: 0, y: 10 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true, amount: 0.3 }}
+//       className="card p-4 animate-fade-in-up"
+//     >
+//       <TiltWrapper>
+//         <div className="elevate">
+//           <h3 className="text-xl font-semibold">{title}</h3>
+//           {img && (
+//             <img
+//               src={img}
+//               alt=""
+//               className="mt-3 rounded-xl aspect-[4/3] object-cover"
+//             />
+//           )}
+//           {subtitle && <p className="mt-3 text-slate-700">{subtitle}</p>}
+//         </div>
+//       </TiltWrapper>
+//     </motion.article>
+//   );
+// }
 export function NewsCard({ title, subtitle, img }: CardProps): JSX.Element {
   return (
     <motion.article
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      className="card p-4 animate-fade-in-up"
+      className="animate-fade-in-up" // quitamos bg/padding aquí para dárselos al inner
     >
-      <TiltWrapper>
-        <div className="elevate">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          {img && (
-            <img
-              src={img}
-              alt=""
-              className="mt-3 rounded-xl aspect-[4/3] object-cover"
-            />
-          )}
-          {subtitle && <p className="mt-3 text-slate-700">{subtitle}</p>}
-        </div>
-      </TiltWrapper>
+      {/* BORDE degradado animado */}
+      <div
+        className="
+          rounded-2xl p-[3px]
+          bg-gradient-to-r from-[#195b8c] via-[#338ed6] to-[#69b4f3]
+          bg-[length:200%_200%] motion-safe:animate-gradient-move
+          transition-shadow
+          hover:shadow-[0_10px_28px_rgba(25,91,140,.25)]
+        "
+      >
+        {/* Contenido original de tu card */}
+        <TiltWrapper>
+          <div className="card bg-white rounded-2xl p-4">
+            <h3 className="text-xl font-semibold">{title}</h3>
+
+            {img && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={img}
+                alt=""
+                className="mt-3 rounded-xl aspect-[4/3] object-cover"
+              />
+            )}
+
+            {subtitle && <p className="mt-3 text-slate-700">{subtitle}</p>}
+          </div>
+        </TiltWrapper>
+      </div>
     </motion.article>
   );
 }
+
 
 export function FinderCard({ title, children }: CardProps): JSX.Element {
   return (

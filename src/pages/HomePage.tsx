@@ -6,9 +6,11 @@ import QuickActions from "../components/QuickActions";
 import SectionTabs from "../components/SectionTabs";
 import { NewsCard /*, FinderCard*/ } from "../components/Cards";
 
+
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import type { UserProfile } from "../type";
+import NewsSection from "../components/news/NewsSection";
 
 const page = { hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } };
 const stagger = { show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } } };
@@ -62,21 +64,14 @@ export default function HomePage(): JSX.Element {
           </motion.h1>
 
           <motion.div variants={page}><QuickActions /></motion.div>
-          <motion.div variants={page}><SectionTabs /></motion.div>
+          {/* QUITE LOS TABS PORQUE LOS VEO INNESECARIOS POR EL MOMENTO */}
+          {/* <motion.div variants={page}><SectionTabs /></motion.div> */}
 
-          <motion.div variants={page} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <NewsCard
-              title="Noticias"
-              subtitle="Sección de noticias, prueba de diseño"
-              img="https://www.pixelstalk.net/wp-content/uploads/images6/Naruto-Wallpaper-4K-HD-Free-download.jpg"
-            />
-            <NewsCard
-              title="Foro o lo que sea"
-              subtitle="Contenido de ejemplo esto solo es un diseño hijo de perra"
-              img="https://livewallpapers4free.com/wp-content/uploads/2024/08/itachi-uchiha-full-moon-naruto-shippuden-4k-live-wallpaper_thumb1-scaled.jpg"
-            />
-            {/* <FinderCard title="Encuentra tu grupo de AA">Busca reuniones cerca de ti</FinderCard> */}
-          </motion.div>
+          {/* MOSTRAMOS LAS NOTICIAS*/}
+           <motion.div variants={page}>
+            <NewsSection />
+          </motion.div> 
+          
         </section>
       </motion.div>
     </main>
