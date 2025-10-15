@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import type { UserProfile } from "../type";
-import CompleteProfileModal from "../components/CompleteProfileModal";
+import type { UserProfile } from "../../type";
+import CompleteProfileModal from "../../components/CompleteProfileModal";
 
 export default function Dashboard() {
   const [profile, setProfile] = useState<UserProfile | null>(null);

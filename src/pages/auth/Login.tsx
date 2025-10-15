@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "../components/Alert";
-import { auth, googleProvider, db } from "../firebase";
+
+import Alert from "../../components/Alert";
+
+import { auth, googleProvider, db } from "../../firebase";
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, signOut } from "firebase/auth";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 

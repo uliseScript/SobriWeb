@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import "./index.css";
 
 import App from "./App";
-import Login from "./pages/Login.tsx";
-import SignUp from "./pages/SignUp.tsx";
+
+import Login from "./pages/auth/Login.tsx";
+import SignUp from "./pages/auth/SignUp.tsx";
 import HomePage from "./pages/HomePage.tsx";
-import Dashboard from "./pages/Dashboard.tsx";
+import Dashboard from "./pages/users/Dashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 createRoot(document.getElementById("root")!).render(

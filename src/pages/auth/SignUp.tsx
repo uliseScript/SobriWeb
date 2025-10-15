@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import { auth, db, googleProvider } from "../firebase";
-import Alert from "../components/Alert";
+import { auth, db, googleProvider } from "../../firebase";
+import Alert from "../../components/Alert";
 import { createUserWithEmailAndPassword, updateProfile, signInWithPopup, signOut } from "firebase/auth";
 import { doc, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-import type { UserProfile } from "../type";
+import type { UserProfile } from "../../type";
 
 type FormState = { name: string; age: string; email: string; password: string };
 

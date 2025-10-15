@@ -14,7 +14,8 @@ export default function NewsModal({ open, docId, onClose }: Props) {
     const [item, setItem] = useState<NewsItem | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // cargamos el doc
+    // cargamos el docnpm run dev
+    
     const load = useCallback(async () => {
         if (!open || !docId) return;
         setLoading(true);
@@ -112,7 +113,7 @@ export default function NewsModal({ open, docId, onClose }: Props) {
                                             {item?.titulo ?? "Cargando…"}
                                         </h2>
                                         {item?.autor && (
-                                            <p className="text-sm text-slate-500">{item.autor}</p>
+                                            <p className="text-sm text-slate-400">Autor: {item.autor}</p>
                                         )}
                                     </div>
                                     <button
