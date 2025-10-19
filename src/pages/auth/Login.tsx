@@ -6,7 +6,16 @@ import Alert from "../../components/Alert";
 
 import { auth, googleProvider, db } from "../../firebase";
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, signOut } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp, getDocs, query, where, collection } from "firebase/firestore";
+
+async function getUserDocByEmail(email: string){
+  const q = query(collection(db, "users"), where("email", "==", email));
+  const snap = await getDocs(q);
+  if(snap.empty) return null;
+  const d = snap.docs[0];
+  return { id: d.id, ...d.data()} as { id: string; uid?: string; email?: string};
+  
+}
 
 type FormState = { email: string; password: string };
 
@@ -40,12 +49,27 @@ export default function Login() {
     setInfoMsg("");
     try {
       setLoading(true);
-      await signInWithEmailAndPassword(auth, form.email.trim().toLowerCase(), form.password);
-      setInfoMsg("¡Inicio de sesión exitoso!");
+      // await signInWithEmailAndPassword(auth, form.email.trim().toLowerCase(), form.password);
+      // setInfoMsg("¡Inicio de sesión exitoso!");
+      // setTimeout(() => {
+      //   //navigate("/dashboard");
+      //   navigate("/home");
+      // }, 3000);
+      const cred = await signInWithEmailAndPassword(
+        auth,
+        form.email.trim().toLowerCase(),
+        form.password
+      );
+      const userDoc = await getUserDocByEmail(cred.user.email ?? "");
+      if(!userDoc){
+        setErrorMsg("Tu cuenta no esta registrada. Por favor regístrate primero.");
+        return;
+      }
+      const isAdmin = String(userDoc.uid) === "1";
+      setInfoMsg("!Inicio de sesión exitoso¡");
       setTimeout(() => {
-        //navigate("/dashboard");
-        navigate("/home");
-      }, 3000);
+        navigate(isAdmin ? "/admin" : "/home");
+      })
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : "Error al iniciar sesión.");
       console.error(err);
@@ -153,19 +177,32 @@ export default function Login() {
             try {
               setLoading(true);
               setErrorMsg("");
-              const result = await signInWithPopup(auth, googleProvider);
-              const userDoc = await getDoc(doc(db, "users", result.user.uid));
+              // const result = await signInWithPopup(auth, googleProvider);
+              // const userDoc = await getDoc(doc(db, "users", result.user.uid));
               
-              if (!userDoc.exists()) {
+              // if (!userDoc.exists()) {
+              //   setErrorMsg("Esta cuenta de Google no está registrada. Por favor, regístrate primero.");
+              //   await signOut(auth);
+              //   return;
+              // }
+              
+              // setInfoMsg("¡Inicio de sesión con Google exitoso!");
+              // setTimeout(() => {
+              //   //navigate("/dashboard");
+              //   navigate("/home");
+              // }, 3000);
+              const result = await signInWithPopup(auth, googleProvider);
+
+              const userDoc = await getUserDocByEmail(result.user.email ?? "");
+              if (!userDoc) {
                 setErrorMsg("Esta cuenta de Google no está registrada. Por favor, regístrate primero.");
                 await signOut(auth);
-                return;
+                return; 
               }
-              
+              const isAdmin = String(userDoc.uid) === "1";
               setInfoMsg("¡Inicio de sesión con Google exitoso!");
               setTimeout(() => {
-                //navigate("/dashboard");
-                navigate("/home");
+                navigate(isAdmin ? "/admin" : "/home");
               }, 3000);
             } catch (err) {
               setErrorMsg(err instanceof Error ? err.message : "Error al iniciar sesión con Google");

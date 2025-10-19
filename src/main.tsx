@@ -8,6 +8,7 @@ import App from "./App";
 import Login from "./pages/auth/Login.tsx";
 import SignUp from "./pages/auth/SignUp.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import AdminPage from "./pages/admin/AdminPage.tsx";
 import Dashboard from "./pages/users/Dashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -23,6 +24,14 @@ createRoot(document.getElementById("root")!).render(
         element={
           <ProtectedRoute>
             <HomePage />
+          </ProtectedRoute>
+        }
+        />
+        <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminPage />
           </ProtectedRoute>
         }
         />
