@@ -63,33 +63,49 @@ export function NewsCard({ title, subtitle, img }: CardProps): JSX.Element {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      className="animate-fade-in-up" // quitamos bg/padding aquí para dárselos al inner
+      className="animate-fade-in-up h-full"   // <--  igualar la altura
     >
-      {/* BORDE degradado animado */}
+      {/* aqui esta el borde degradado con la animacion */}
       <div
         className="
           rounded-2xl p-[3px]
           bg-gradient-to-r from-[#195b8c] via-[#338ed6] to-[#69b4f3]
           bg-[length:200%_200%] motion-safe:animate-gradient-move
-          transition-shadow
-          hover:shadow-[0_10px_28px_rgba(25,91,140,.25)]
+          transition-shadow hover:shadow-[0_10px_28px_rgba(25,91,140,.25)]
+          h-full
         "
       >
-        {/* Contenido original de tu card */}
         <TiltWrapper>
-          <div className="card bg-white rounded-2xl p-4">
-            <h3 className="text-xl font-semibold">{title}</h3>
+          {/* Cuerpo fijo y consistente */}
+          <div className="bg-white rounded-2xl p-4 flex flex-col h-full">
+            {/* titulo con un max de dos lineas */}
+            <h3 className="text-lg font-semibold leading-snug line-clamp-2 min-h-[3.2rem]">
+              {title}
+            </h3>
 
+            {/* imagen */}
             {img && (
-              // eslint-disable-next-line @next/next/no-img-element
+              
               <img
                 src={img}
                 alt=""
-                className="mt-3 rounded-xl aspect-[4/3] object-cover"
+                className="mt-3 rounded-xl aspect-[16/9] w-full object-cover"
               />
             )}
 
-            {subtitle && <p className="mt-3 text-slate-700">{subtitle}</p>}
+            {/* resumen del subtitulo*/}
+            {subtitle && (
+              <p className="mt-3 text-slate-700 line-clamp-2 min-h-[3rem]">
+                {subtitle}
+              </p>
+            )}
+
+            {/* CTA: ancla al fondo para alinear alturas pese a clamps */}
+            <div className="mt-auto pt-3">
+              <span className="text-sm font-medium text-[#195b8c]">
+                Ver más
+              </span>
+            </div>
           </div>
         </TiltWrapper>
       </div>

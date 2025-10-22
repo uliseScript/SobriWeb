@@ -105,7 +105,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'), // porque usas `prose` en el modal
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'), // porque usas `prose` en el modal
   ],
 };
 

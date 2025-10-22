@@ -10,21 +10,18 @@ type Props = {
 };
 
 export default function NewsCardAdapter({ item, onOpen }: Props) {
-     const handleOpen = () => {
-    if (item.id) onOpen?.(item.id);
-  };
   return (
     <div
       role="button"
-      onClick={handleOpen}
-      className="cursor-pointer"
+      onClick={() => item.id && onOpen?.(item.id)}
+      className="cursor-pointer h-full"          // <-- clave
       aria-label={`Abrir ${item.titulo}`}
     >
-        <NewsCard
-            title={item.titulo}
-            subtitle={item.subtitulo}
-            img={item.imageUrl}
-        />
-        </div>
-    );
+      <NewsCard
+        title={item.titulo}
+        subtitle={item.subtitulo ?? ""}
+        img={item.imageUrl}
+      />
+    </div>
+  );
 }

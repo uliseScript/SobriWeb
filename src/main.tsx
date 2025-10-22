@@ -11,6 +11,8 @@ import HomePage from "./pages/HomePage.tsx";
 import AdminPage from "./pages/admin/AdminPage.tsx";
 import Dashboard from "./pages/users/Dashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoute";
+import HomeFamily from "./pages/Family/HomeFamily.tsx";
+import HomePartner from "./pages/Partners/HomePartner.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -41,6 +43,22 @@ createRoot(document.getElementById("root")!).render(
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/homeFamily"
+          element={
+            <ProtectedRoute>
+              <HomeFamily />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/homePartner"
+          element={
+            <ProtectedRoute>
+              <HomePartner />
             </ProtectedRoute>
           }
         />
